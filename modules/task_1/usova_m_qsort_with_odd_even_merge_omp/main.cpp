@@ -56,7 +56,7 @@ void print_array(int* array, int size) {
 
 bool check(int* A, int* B, int size) {
   for (int i = 0; i < size; ++i)
-    if (fabs(A[i] - B[i]) != 0) {
+    if (std::abs(A[i] - B[i]) != 0) {
       return false;
     }
   return true;
