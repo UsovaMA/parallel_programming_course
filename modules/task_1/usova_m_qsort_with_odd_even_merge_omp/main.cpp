@@ -1,8 +1,8 @@
 // Copyright 2019 Usova Marina
 
 #include <omp.h>
-#include <iostream>
 #include <stdlib.h>
+#include <iostream>
 #include <ctime>
 
 // FUNCTION OF SORTING HOARA
@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
   if (argc > 1) {
     size = atoi(argv[1]);
   } else {
-    size = 500 + rand() % 1000;
+    size = 500 + std::rand() % 1000;
     // size = 20;
   }
 
