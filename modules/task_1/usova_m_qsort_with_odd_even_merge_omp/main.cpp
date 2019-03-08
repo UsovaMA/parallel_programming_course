@@ -2,19 +2,20 @@
 
 #include <omp.h>
 #include <iostream>
-#include <random>
+#include <stdlib.h>
 #include <ctime>
 
-// ‘”Ќ ÷»я —ќ–“»–ќ¬ » ’ќј–ј
+// FUNCTION OF SORTING HOARA
 
 template<typename Tmass, typename Tint> void quicksort(Tmass* mass, Tint iStart, Tint iFinish) {
   if (iFinish > iStart) {
     Tint s = iStart, f = iFinish;
-    // в качестве опорного элемента берЄм середину массива
+    // as the reference element take the middle of the array
     Tint middle = mass[(iFinish + iStart) / 2];
 
-    // осуществл€ем разделение на элементы меньшие опорного и большие опорного,
-    // а затем рекурсивно запускаем ту же функцию дл€ сформированных множеств
+    // we carry out division into elements smaller than the reference
+    // and larger ones of the reference, and then recursively run
+    // the same function for the generated sets
     do {
       while (mass[s] < middle)
         s++;
@@ -36,13 +37,13 @@ template<typename Tmass, typename Tint> void quicksort(Tmass* mass, Tint iStart,
   }
 }
 
-// ¬—ѕќћќ√ј“≈Ћ№Ќџ≈ ‘”Ќ ÷»»
+// SUPPORTING FUNCTIONS
 
 void create_array(int* array, int* copy, int size) {
   srand((unsigned int)time(NULL));
   const int max_elem = 10000;
   for (int i = 0; i < size; ++i) {
-    array[i] = rand() % max_elem;
+    array[i] = std::rand() % max_elem;
     copy[i] = array[i];
   }
 }
@@ -61,11 +62,11 @@ bool check(int* A, int* B, int size) {
   return true;
 }
 
-int compare(const void * x1, const void * x2) {
-  return (*(int*)x1 - *(int*)x2);
+int compare(const int *i, const int *j) {
+  return *i - *j;
 }
 
-// √Ћј¬Ќјя ‘”Ќ ÷»я
+// MAIN FUNCTION
 
 int main(int argc, char** argv) {
   int size;
@@ -95,7 +96,7 @@ int main(int argc, char** argv) {
   std::cout << "usual sort..." << std::endl;
 
   auto timeWork_ = omp_get_wtime();
-  qsort(copy, size, sizeof(int), compare);
+  qsort(copy, size, sizeof(int), (int(*) (const void *, const void *)) compare);
   timeWork_ = omp_get_wtime() - timeWork_;
 
   // print_array(copy, size);
