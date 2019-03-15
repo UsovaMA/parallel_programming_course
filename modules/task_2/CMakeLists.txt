@@ -8,4 +8,5 @@ add_subdirectory(bederdinov_d_quicksort_batcher_task2_omp)
 add_subdirectory(romanov_a_multidim_mc_task_2_omp)
 add_subdirectory(panova_e_conj_gradient_task2_omp)
 add_subdirectory(krasikova_e_cannon_task2_omp)
+add_subdirectory(usova_m_qsort_with_odd_even_merge_task2_omp)
 
