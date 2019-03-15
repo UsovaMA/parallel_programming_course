@@ -5,6 +5,7 @@
 #include <iostream>
 #include <ctime>
 #include <vector>
+#include <cmath>
 
 // FUNCTION OF SORTING HOARA
 
@@ -78,7 +79,7 @@ void unsplit(const std::vector<int> vector1, const std::vector<int> vector2, int
   for (; i < size_1; i++) {
     Result[size_1 + i] = vector1[i];
   }
-  for (; i < size_2; j++) {
+  for (; j < size_2; j++) {
     Result[size_2 + j] = vector2[j];
   }
 }
@@ -137,7 +138,7 @@ void parallelQuicksort(int* mass, int threads, int size) {
 
     while (step < threads) {
       // at each step, we select even and odd elements from paired streams
-      thread_index = static_cast<int>(std::pow(2, step - 1));
+      thread_index = static_cast<int>(pow(2, step - 1));
 
       if (threadID % (thread_index * 2) == 0) {
         split(mass + shift_array[threadID], array_of_sizes[threadID], mass + shift_array[threadID +
