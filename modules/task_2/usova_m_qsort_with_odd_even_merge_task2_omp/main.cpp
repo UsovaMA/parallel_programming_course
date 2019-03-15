@@ -50,7 +50,7 @@ void split(const int *mass_1, int size_1, const int *mass_2, int size_2, bool is
   } else {
     i = 1, j = 1;
   }
-  for (i; (i < size_1) && (j < size_2);) {
+  for (; (i < size_1) && (j < size_2);) {
     if (mass_1[i] <= mass_2[j]) {
       Result->push_back(mass_1[i]);
       i += 2;
@@ -59,10 +59,10 @@ void split(const int *mass_1, int size_1, const int *mass_2, int size_2, bool is
       j += 2;
     }
   }
-  for (i; i < size_1; i += 2) {
+  for (; i < size_1; i += 2) {
       Result->push_back(mass_1[i]);
   }
-  for (j; j < size_2; j += 2) {
+  for (; j < size_2; j += 2) {
     Result->push_back(mass_2[j]);
   }
 }
@@ -71,15 +71,15 @@ void unsplit(const std::vector<int> vector1, const std::vector<int> vector2, int
   int size_1 = vector1.size(), size_2 = vector2.size();
 
   int i = 0, j = 0;
-  for (i; (i < size_1) && (j < size_2); i++, j++) {
+  for (; (i < size_1) && (j < size_2); i++, j++) {
     Result[i + j] = vector1[i];
     Result[i + j + 1] = vector2[j];
   }
-  for (i; i < size_1; i++) {
-    Result[size_2 + i] = vector1[i];
+  for (; i < size_1; i++) {
+    Result[size_1 + i] = vector1[i];
   }
-  for (j; i < size_2; j++) {
-    Result[size_1 + j] = vector2[j];
+  for (; i < size_2; j++) {
+    Result[size_2 + j] = vector2[j];
   }
 }
 
@@ -137,7 +137,7 @@ void parallelQuicksort(int* mass, int threads, int size) {
 
     while (step < threads) {
       // at each step, we select even and odd elements from paired streams
-      thread_index = static_cast<int>(pow(2, step - 1));
+      thread_index = static_cast<int>(std::pow(2, step - 1));
 
       if (threadID % (thread_index * 2) == 0) {
         split(mass + shift_array[threadID], array_of_sizes[threadID], mass + shift_array[threadID +
@@ -174,7 +174,7 @@ void parallelQuicksort(int* mass, int threads, int size) {
 
 void create_array(int* array, int* copy, int size) {
   srand((unsigned int)time(NULL));
-  const int max_elem = 10000;
+  const int max_elem = 1000;
   for (int i = 0; i < size; ++i) {
     array[i] = std::rand() % max_elem;
     copy[i] = array[i];
@@ -211,7 +211,7 @@ int main(int argc, char** argv) {
   } else {
     // size = 500 + std::rand() % 1000;
     // size = 12;
-    size = 100;
+    size = 10000000;
   }
 
   std::cout << "n = " << size << std::endl;
