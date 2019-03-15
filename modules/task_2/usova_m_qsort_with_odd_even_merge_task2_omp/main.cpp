@@ -50,7 +50,7 @@ void split(const int *mass_1, int size_1, const int *mass_2, int size_2, bool is
   } else {
     i = 1, j = 1;
   }
-  for (; (i < size_1) && (j < size_2);) {
+  for (i; (i < size_1) && (j < size_2);) {
     if (mass_1[i] <= mass_2[j]) {
       Result->push_back(mass_1[i]);
       i += 2;
@@ -59,10 +59,10 @@ void split(const int *mass_1, int size_1, const int *mass_2, int size_2, bool is
       j += 2;
     }
   }
-  for (; i < size_1; i += 2) {
+  for (i; i < size_1; i += 2) {
       Result->push_back(mass_1[i]);
   }
-  for (; j < size_2; j += 2) {
+  for (j; j < size_2; j += 2) {
     Result->push_back(mass_2[j]);
   }
 }
@@ -71,14 +71,14 @@ void unsplit(const std::vector<int> vector1, const std::vector<int> vector2, int
   int size_1 = vector1.size(), size_2 = vector2.size();
 
   int i = 0, j = 0;
-  for (; (i < size_1) && (j < size_2); i++, j++) {
+  for (i; (i < size_1) && (j < size_2); i++, j++) {
     Result[i + j] = vector1[i];
     Result[i + j + 1] = vector2[j];
   }
-  for (; i < size_1; i++) {
+  for (i; i < size_1; i++) {
     Result[size_2 + i] = vector1[i];
   }
-  for (; i < size_2; j++) {
+  for (j; i < size_2; j++) {
     Result[size_1 + j] = vector2[j];
   }
 }
@@ -131,7 +131,6 @@ void parallelQuicksort(int* mass, int threads, int size) {
     }
 
     quicksort(mass + shift_array[threadID], 0, array_of_sizes[threadID] - 1);
-    
 #pragma omp barrier  // wait until all threads sort their part of the source array
 
     step = 1;
@@ -143,9 +142,7 @@ void parallelQuicksort(int* mass, int threads, int size) {
       if (threadID % (thread_index * 2) == 0) {
         split(mass + shift_array[threadID], array_of_sizes[threadID], mass + shift_array[threadID +
           thread_index], array_of_sizes[threadID + thread_index], 1, &Temp[threadID]);
-      }
-
-      else if (threadID % thread_index == 0) {
+      } else if (threadID % thread_index == 0) {
         split(mass + shift_array[threadID], array_of_sizes[threadID], mass + shift_array[threadID -
           thread_index], array_of_sizes[threadID - thread_index], 0, &Temp[threadID]);
       }
@@ -171,7 +168,6 @@ void parallelQuicksort(int* mass, int threads, int size) {
   delete[] Temp;
   delete[] array_of_sizes;
   delete[] shift_array;
-
 }
 
 // SUPPORTING FUNCTIONS
