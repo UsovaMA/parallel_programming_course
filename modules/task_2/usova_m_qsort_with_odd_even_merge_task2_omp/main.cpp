@@ -83,11 +83,11 @@ void unsplit(const std::vector<int> vector1, const std::vector<int> vector2, int
   }
 }
 
-void compare_exchange(int& x1, int& x2) {
-  if (x1 > x2) {
-    int tmp = x1;
-    x1 = x2;
-    x2 = tmp;
+void compare_exchange(int* x1, int* x2) {
+  if (*x1 > *x2) {
+    int tmp = *x1;
+    *x1 = *x2;
+    *x2 = tmp;
   }
 }
 
@@ -98,11 +98,11 @@ void oddEvenMerge(const std::vector<int> vector1, const std::vector<int> vector2
   if (size_1 + size_2 > 2) {
     unsplit(vector1, vector2, Result);
     for (int i = 1; i < size_1 + size_2 - 1; i++) {
-      compare_exchange(Result[i], Result[i + 1]);
+      compare_exchange(&Result[i], &Result[i + 1]);
     }
   } else {
     if (size_1 + size_2 == 2)
-      compare_exchange(Result[0], Result[1]);
+      compare_exchange(&Result[0], &Result[1]);
   }
 }
 
@@ -147,7 +147,7 @@ void parallelQuicksort(int* mass, int threads, int size) {
           thread_index], array_of_sizes[threadID - thread_index], 0, &Temp[threadID]);
       }
 
-#pragma omp barrier // we expect execution of this part by all threads
+#pragma omp barrier  // we expect execution of this part by all threads
 
       // Batcher merge on paired threads
       if (threadID % (thread_index * 2) == 0) {
