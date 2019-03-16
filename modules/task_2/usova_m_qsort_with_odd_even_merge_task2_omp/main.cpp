@@ -12,7 +12,7 @@
 void quicksort(int* mass, int iStart, int iFinish) {
   if (iFinish > iStart) {
     int s = iStart, f = iFinish;
-    
+
     // as the reference element take the middle of the array
     int middle = mass[(iFinish + iStart) / 2];
 
