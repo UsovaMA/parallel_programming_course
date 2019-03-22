@@ -84,7 +84,7 @@ void compare_exchange(int* x1, int* x2) {
 // function merges ordered arrays
 void oddEvenMerge(int* mass, int size, int *array_of_sizes, int threads) {
   int id;
-  int sortLevel = threads; 
+  int sortLevel = threads;
   int* tmp1 = new int[size];
   int* tmp2 = new int[threads + 1];
 
