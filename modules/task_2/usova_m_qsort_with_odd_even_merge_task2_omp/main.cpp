@@ -229,6 +229,7 @@ int main(int argc, char** argv) {
   std::cout.precision(16);
   if (check(copy, data, size))
     std::cout << "- good sorting: results of sequential sort and parallel sort coincide"
+
     << std::endl << "- time of sequential sorting: " << timeWork_
     << std::endl << "- time of parallel sorting: " << timeWork
     << std::endl << "- acceleration of parallel sorting: " << timeWork_ / timeWork << std::endl;
