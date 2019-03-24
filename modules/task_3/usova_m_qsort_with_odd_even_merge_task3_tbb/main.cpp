@@ -135,7 +135,7 @@ void oddEvenMergeTBB(int* mass, int size, int *array_of_sizes, int threads) {
   while ((sortLevel != 1)) {
     tbb::task_scheduler_init init(threads);
     tbb::parallel_for(tbb::blocked_range<int>(0, sortLevel),
-      [&mass, &array_of_sizes, &tmp1, &size](const tbb::blocked_range<int> &range) {
+      [&mass, &array_of_sizes, &tmp1](const tbb::blocked_range<int> &range) {
         for (int id = range.begin(); id != range.end(); id++) {
           int t = id % 2;
           splitUnsplit(mass + array_of_sizes[id - t],
@@ -148,7 +148,7 @@ void oddEvenMergeTBB(int* mass, int size, int *array_of_sizes, int threads) {
     init.terminate();
     init.initialize(threads);
     tbb::parallel_for(tbb::blocked_range<int>(0, sortLevel),
-      [&mass, &array_of_sizes, &tmp1, &size](const tbb::blocked_range<int> &range) {
+      [&mass, &array_of_sizes](const tbb::blocked_range<int> &range) {
         for (int id = range.begin(); id != range.end(); id++) {
           if (id % 2 != 0) {
             for (int j = 1; j < (array_of_sizes[id + 1] - array_of_sizes[id - 1] + 1) / 2; j++) {
