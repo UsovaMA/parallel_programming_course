@@ -84,7 +84,7 @@ void compare_exchange(int* x1, int* x2) {
 }
 
 // function merges ordered arrays
-void oddEvenMergeOpenMP(int* mass, int size, int *array_of_sizes, int threads) {
+/*void oddEvenMergeOpenMP(int* mass, int size, int *array_of_sizes, int threads) {
   int id;
   int sortLevel = threads;
   int* tmp1 = new int[size];
@@ -125,7 +125,7 @@ void oddEvenMergeOpenMP(int* mass, int size, int *array_of_sizes, int threads) {
 
   delete[] tmp1;
   delete[] tmp2;
-}
+}*/
 
 void oddEvenMergeTBB(int* mass, int size, int *array_of_sizes, int threads) {
   int sortLevel = threads;
@@ -178,7 +178,7 @@ void oddEvenMergeTBB(int* mass, int size, int *array_of_sizes, int threads) {
   delete[] tmp2;
 }
 
-void parallelQuicksortOpenMP(int* mass, int threads, int size) {
+/*void parallelQuicksortOpenMP(int* mass, int threads, int size) {
   int id;
   int *array_of_sizes = new int[threads + 1];
 
@@ -198,7 +198,7 @@ void parallelQuicksortOpenMP(int* mass, int threads, int size) {
   }
 
   delete[] array_of_sizes;
-}
+}*/
 
 
 void parallelQuicksortTBB(int* mass, int threads, int size) {
@@ -252,7 +252,7 @@ bool check(int* A, int* B, int size) {
   return *i - *j;
 }*/
 
-void runExperiment(int size, int threads) {
+/*void runExperiment(int size, int threads) {
   srand((unsigned int)time(NULL));
 
   int* data = new int[size];
@@ -323,15 +323,15 @@ void runExperiment(int size, int threads) {
   delete[]data;
   delete[]copy1;
   delete[]copy2;
-}
+}*/
 
-void runSeriesOfExperiments(int threads) {
+/*void runSeriesOfExperiments(int threads) {
   for (int size = 1000000; size < 10000000; size += 1000000) {
     for (int i = 2; i <= threads; i += 2) {
       runExperiment(size, i);
     }
   }
-}
+}*/
 
 void runMyProgramm(int size, int threads) {
   srand((unsigned int)time(NULL));
@@ -363,13 +363,13 @@ void runMyProgramm(int size, int threads) {
   // print_array(copy1, size);
 
   std::cout << "sorting done!" << std::endl << std::endl;
-  std::cout << "Start parallel sort (ver. OpenMP)..." << std::endl;
+  /*std::cout << "Start parallel sort (ver. OpenMP)..." << std::endl;
 
   auto timeWork__ = omp_get_wtime();
   parallelQuicksortOpenMP(copy2, threads, size);
   auto timeWork2 = omp_get_wtime() - timeWork__;
 
-  std::cout << "sorting done!" << std::endl << std::endl;
+  std::cout << "sorting done!" << std::endl << std::endl;*/
   std::cout << "Start parallel sort (ver. TBB)..." << std::endl;
 
   auto timeWork___ = tbb::tick_count::now();
@@ -383,12 +383,12 @@ void runMyProgramm(int size, int threads) {
   std::cout << "sorting done!" << std::endl << std::endl;
 
   std::cout.precision(16);
-  if (check(copy1, data, size) && check(copy2, data, size))
+  if (check(copy1, data, size) /*&& check(copy2, data, size)*/)
     std::cout << "- good sorting: results of sequential sort and parallel sorts coincide"
     << std::endl << "- time of sequential sorting: " << timeWork1.seconds()
-    << std::endl << "- time of parallel sorting (ver. OpenMP): " << timeWork2
+    //<< std::endl << "- time of parallel sorting (ver. OpenMP): " << timeWork2
     << std::endl << "- time of parallel sorting (ver. TBB): " << timeWork3.seconds()
-    << std::endl << "- acceleration of parallel sorting (ver. OpenMP): " << timeWork1.seconds() / timeWork2
+   // << std::endl << "- acceleration of parallel sorting (ver. OpenMP): " << timeWork1.seconds() / timeWork2
     << std::endl << "- acceleration of parallel sorting (ver. TBB): "
     << timeWork1.seconds() / timeWork3.seconds() << std::endl;
   else
