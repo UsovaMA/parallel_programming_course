@@ -402,7 +402,8 @@ void runMyProgramm(int size, int threads) {
 // MAIN FUNCTION
 
 int main(int argc, char** argv) {
-  int size, threads = 4, threadsMax = 4;
+  int size, threads = 4;
+  // int threadsMax = 4;
 
   if (argc > 1) {
     size = atoi(argv[1]);
