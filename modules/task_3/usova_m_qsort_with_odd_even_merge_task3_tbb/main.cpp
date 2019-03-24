@@ -132,9 +132,9 @@ void oddEvenMergeTBB(int* mass, int size, int *array_of_sizes, int threads) {
   int* tmp1 = new int[size];
   int* tmp2 = new int[threads + 1];
 
-  while ((sortLevel != 1)) {  
+  while ((sortLevel != 1)) {
     tbb::task_scheduler_init init(threads);
-    tbb::parallel_for(tbb::blocked_range<int>(0, sortLevel), 
+    tbb::parallel_for(tbb::blocked_range<int>(0, sortLevel),
       [&mass, &array_of_sizes, &tmp1, &size](const tbb::blocked_range<int> &range) {
         for (int id = range.begin(); id != range.end(); id++) {
           int t = id % 2;
@@ -147,7 +147,7 @@ void oddEvenMergeTBB(int* mass, int size, int *array_of_sizes, int threads) {
       });
     init.terminate();
     init.initialize(threads);
-    tbb::parallel_for(tbb::blocked_range<int>(0, sortLevel), 
+    tbb::parallel_for(tbb::blocked_range<int>(0, sortLevel),
       [&mass, &array_of_sizes, &tmp1, &size](const tbb::blocked_range<int> &range) {
         for (int id = range.begin(); id != range.end(); id++) {
           if (id % 2 != 0) {
@@ -214,8 +214,7 @@ void parallelQuicksortTBB(int* mass, int threads, int size) {
     for (int id = range.begin(); id != range.end(); id++) {
       quicksort(mass, array_of_sizes[id], array_of_sizes[id + 1] - 1);
     }
-  }
-  );
+  });
   if (threads > 1) {
     oddEvenMergeTBB(mass, size, array_of_sizes, threads);
   }
@@ -270,7 +269,6 @@ void runExperiment(int size, int threads) {
   out << "Threads number: n = " << threads << std::endl;
 
   if (out.is_open()) {
-
     out << "Start massive generating..." << std::endl;
 
     create_array(data, copy1, copy2, size);
@@ -314,7 +312,8 @@ void runExperiment(int size, int threads) {
       << std::endl << "- time of parallel sorting (ver. OpenMP): " << timeWork2
       << std::endl << "- time of parallel sorting (ver. TBB): " << timeWork3.seconds()
       << std::endl << "- acceleration of parallel sorting (ver. OpenMP): " << timeWork1.seconds() / timeWork2
-      << std::endl << "- acceleration of parallel sorting (ver. TBB): " << timeWork1.seconds() / timeWork3.seconds() << std::endl;
+      << std::endl << "- acceleration of parallel sorting (ver. TBB): "
+      << timeWork1.seconds() / timeWork3.seconds() << std::endl;
     else
       out << " error of sorting!!!" << std::endl;
   }
@@ -390,14 +389,14 @@ void runMyProgramm(int size, int threads) {
     << std::endl << "- time of parallel sorting (ver. OpenMP): " << timeWork2
     << std::endl << "- time of parallel sorting (ver. TBB): " << timeWork3.seconds()
     << std::endl << "- acceleration of parallel sorting (ver. OpenMP): " << timeWork1.seconds() / timeWork2
-    << std::endl << "- acceleration of parallel sorting (ver. TBB): " << timeWork1.seconds() / timeWork3.seconds() << std::endl;
+    << std::endl << "- acceleration of parallel sorting (ver. TBB): "
+    << timeWork1.seconds() / timeWork3.seconds() << std::endl;
   else
     std::cout << " error of sorting!!!" << std::endl;
 
   delete[]data;
   delete[]copy1;
   delete[]copy2;
-
 }
 
 // MAIN FUNCTION
@@ -407,8 +406,7 @@ int main(int argc, char** argv) {
 
   if (argc > 1) {
     size = atoi(argv[1]);
-  }
-  else {
+  } else {
     // size = 500 + std::rand() % 1000;
     // size = 12;
     size = 1000000;
