@@ -388,7 +388,7 @@ void runMyProgramm(int size, int threads) {
     << std::endl << "- time of sequential sorting: " << timeWork1.seconds()
     //<< std::endl << "- time of parallel sorting (ver. OpenMP): " << timeWork2
     << std::endl << "- time of parallel sorting (ver. TBB): " << timeWork3.seconds()
-   // << std::endl << "- acceleration of parallel sorting (ver. OpenMP): " << timeWork1.seconds() / timeWork2
+    // << std::endl << "- acceleration of parallel sorting (ver. OpenMP): " << timeWork1.seconds() / timeWork2
     << std::endl << "- acceleration of parallel sorting (ver. TBB): "
     << timeWork1.seconds() / timeWork3.seconds() << std::endl;
   else
